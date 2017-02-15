@@ -1,0 +1,10 @@
+<% @users.where( :id => current_user.id ).each do |user| %>
+	<% user.friends.each do |friend| %>
+ 	<p><%= friend.email %></p>
+	<% end %>
+<% end %>
+
+<% @users.where.not( :id => current_user.id ).each do |user| %>
+	<p><%= user.email %>&nbsp;<%= link_to "Add friend", friendships_path(:friend_id => user), :method => :post %></p>
+ <%# end %>
+<% end %>
