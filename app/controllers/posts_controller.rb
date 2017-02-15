@@ -13,7 +13,8 @@ class PostsController < ApplicationController
   end
 
   def user_list
-      @users = User.all
+      @users = current_user
+      @user = User.all.where.not( :id => current_user.id )
   end
   def show
   end
