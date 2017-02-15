@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20170215171546) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "friends", force: :cascade do |t|
     t.string   "email"
     t.integer  "user_id"
@@ -27,8 +30,8 @@ ActiveRecord::Schema.define(version: 20170215171546) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "friendships", ["friend_id"], name: "index_friendships_on_friend_id"
-  add_index "friendships", ["user_id"], name: "index_friendships_on_user_id"
+  add_index "friendships", ["friend_id"], name: "index_friendships_on_friend_id", using: :btree
+  add_index "friendships", ["user_id"], name: "index_friendships_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "text"
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(version: 20170215171546) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
