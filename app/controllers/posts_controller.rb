@@ -1,9 +1,11 @@
 class PostsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :set_post, only: [:show, :edit, :update, :destroy]
+  
   def index
     @user = User.all.where.not( :id => current_user.id )
     @posts = Post.where("user_id IN (?)", current_user.friends.pluck(:id))
+    @current_user_post = Post.where(:user_id => current_user.id)
     @post = Post.new
   end
   

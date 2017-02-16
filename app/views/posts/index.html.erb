@@ -1,9 +1,15 @@
 <h><b>posts</b></h>
 <a href="/user_list">User List</a>
 <p>
+followers : <% current_user.friends.count %>
 
-<%= current_user.email %>
+<p><%= current_user.email %></p>
 <% @posts.each do |post| %>
+	<p><%= post.user.email if post.user.present? %> :<%= post.text %>&nbsp;<td><%= link_to 'Edit', edit_post_path(post) %></td><td> <td><%= link_to 'Destroy', post_path(post),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td></td></p>
+<% end %>
+<% @current_user_post.each do |post| %>
 	<p><%= post.user.email if post.user.present? %> :<%= post.text %>&nbsp;<td><%= link_to 'Edit', edit_post_path(post) %></td><td> <td><%= link_to 'Destroy', post_path(post),
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td></td></p>
